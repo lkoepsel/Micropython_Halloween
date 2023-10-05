@@ -16,6 +16,7 @@ import math
 import struct
 from machine import I2S
 from machine import Pin
+import time
 
 
 def make_tone(rate, bits, frequency):
@@ -48,7 +49,7 @@ BUFFER_LENGTH_IN_BYTES = 2000
 # ======= I2S CONFIGURATION =======
 
 # ======= AUDIO CONFIGURATION =======
-TONE_FREQUENCY_IN_HZ = 500
+TONE_FREQUENCY_IN_HZ = 440
 SAMPLE_SIZE_IN_BITS = 16
 FORMAT = I2S.MONO  # only MONO supported in this example
 SAMPLE_RATE_IN_HZ = 22_050
@@ -70,7 +71,8 @@ samples = make_tone(SAMPLE_RATE_IN_HZ, SAMPLE_SIZE_IN_BITS,
                     TONE_FREQUENCY_IN_HZ)
 
 # continuously write tone sample buffer to an I2S DAC
-print("==========  START PLAYBACK ==========")
+time.sleep(2)
+print("Start playback, Ctrl-C to stop")
 try:
     while True:
         num_written = audio_out.write(samples)
@@ -80,4 +82,4 @@ except (KeyboardInterrupt, Exception) as e:
 
 # cleanup
 audio_out.deinit()
-print("Done")
+print("exiting")
