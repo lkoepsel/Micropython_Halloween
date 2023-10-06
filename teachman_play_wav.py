@@ -12,9 +12,7 @@
 # Blocking version
 # - the write() method blocks until the entire sample buffer is written to I2S
 #
-# Use a tool such as rshell or ampy to copy the WAV file
-# "music-16k-16bits-mono.wav"
-# to internal flash memory
+# Use a tool such as mpremote to copy a WAV file to internal flash memory
 
 
 from machine import I2S
@@ -48,7 +46,7 @@ audio_out = I2S(
     ibuf=BUFFER_LENGTH_IN_BYTES,
 )
 time.sleep(2)
-print("Start playback, Ctrl-C to stop")
+print("Start single wav file playback, Ctrl-C to stop")
 
 wav = open(WAV_FILE, "rb")
 pos = wav.seek(44)  # advance to first byte of Data section in WAV file

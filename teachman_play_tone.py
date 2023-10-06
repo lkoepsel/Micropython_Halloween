@@ -72,7 +72,7 @@ samples = make_tone(SAMPLE_RATE_IN_HZ, SAMPLE_SIZE_IN_BITS,
 
 # continuously write tone sample buffer to an I2S DAC
 time.sleep(2)
-print("Start playback, Ctrl-C to stop")
+print("Start single tone playback, Ctrl-C to stop")
 try:
     while True:
         num_written = audio_out.write(samples)

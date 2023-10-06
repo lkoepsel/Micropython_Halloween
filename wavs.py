@@ -37,6 +37,8 @@ SAMPLE_RATE_IN_HZ = 16000
 
 
 def play():
+    time.sleep(2)
+    print("Start multiple wav files playback, Ctrl-C to stop")
     audio_out = I2S(
         I2S_ID,
         sck=Pin(SCK_PIN),
@@ -53,7 +55,7 @@ def play():
         for WAV_FILE in WAV_FILES:
             print(f"Playing {WAV_FILE}")
             wav = open(WAV_FILE, "rb")
-            _ = wav.seek(44)  # goto first byte of Data section in WAV file
+            pos = wav.seek(44) # goto first byte of Data section in WAV file
 
             # allocate sample array
             # memoryview used to reduce heap allocation
@@ -63,21 +65,21 @@ def play():
             # continuously read audio samples from the WAV file
             # and write them to an I2S DAC
             try:
-                # while True:
-                num_read = wav.readinto(wav_samples_mv)
-                # end of WAV file?
-                if num_read == 0:
-                    # end-of-file, advance to first byte of Data section
-                    _ = wav.seek(44)
-                else:
-                    _ = audio_out.write(wav_samples_mv[:num_read])
+                while True:
+                    num_read = wav.readinto(wav_samples_mv)
+                    # end of WAV file?
+                    if num_read == 0:
+                        # end-of-file, advance to first byte of Data section
+                        _ = wav.seek(44)
+                    else:
+                        _ = audio_out.write(wav_samples_mv[:num_read])
 
-                # cleanup
-                wav.close()
+                    # cleanup
+                    wav.close()
 
             except (KeyboardInterrupt, Exception) as e:
                 print("caught exception {} {}".format(type(e).__name__, e))
-                break
+                sys.print_exception(e)
                 audio_out.deinit()
 
                 print("Exiting")
@@ -85,6 +87,4 @@ def play():
 
 
 if __name__ == '__main__':
-    time.sleep(2)
-    print("Start playback, Ctrl-C to stop")
     play()
