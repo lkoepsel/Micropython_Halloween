@@ -92,19 +92,23 @@ class WavPlayer:
             raise SystemError("Internal error:  unexpected state")
             self.state == WavPlayer.STOP
 
+# parse - parses the audio file to confirm it is a .wav file and to gather
+# playback information. Use afinfo to print .wav file metadata on a Mac, use
+# "afconvert -v -d LEI16@16000 -l Mono -c 1 --mix" to convert an audio file
+# Compressor can also do it, however, it adds a 'junk' chunk which nee
     def parse(self, wav_file):
         chunk_ID = wav_file.read(4)
-        print(f"{chunk_ID=}")
+        print(f"{str(chunk_ID)=}")
         if chunk_ID != b"RIFF":
             raise ValueError("WAV chunk ID invalid")
         chunk_size = wav_file.read(4)
-        print(f"{chunk_size=}")
+        print(f"{(chunk_size)=}")
         format = wav_file.read(4)
-        print(f"{format=}")
+        print(f"{str(format)=}")
         if format != b"WAVE":
             raise ValueError("WAV format invalid")
         sub_chunk1_ID = wav_file.read(4)
-        print(f"{sub_chunk1_ID=}")
+        print(f"{str(sub_chunk1_ID)=}")
         if sub_chunk1_ID != b"fmt ":
             raise ValueError("WAV sub chunk 1 ID invalid")
         sub_chunk1_size = wav_file.read(4)
@@ -120,13 +124,16 @@ class WavPlayer:
         byte_rate = struct.unpack("<I", wav_file.read(4))[0]
         block_align = struct.unpack("<H", wav_file.read(2))[0]
         self.bits_per_sample = struct.unpack("<H", wav_file.read(2))[0]
-
+        print(f"{sub_chunk1_size=} {audio_format=} {num_channels=}\
+              {self.sample_rate=} {byte_rate=} {block_align=}")
         # usually the sub chunk2 ID ("data") comes next, but
         # some online MP3->WAV converters add
         # binary data before "data".  So, read a fairly large
         # block of bytes and search for "data".
+        # previous entry was 200, increased to 4096 after using afinfo
+        # afinfo shows an offset of 4096
 
-        binary_block = wav_file.read(4200)
+        binary_block = wav_file.read(4096)
         offset = binary_block.find(b"data")
         if offset == -1:
             raise ValueError("WAV sub chunk 2 ID not found")

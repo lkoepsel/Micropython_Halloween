@@ -4,5 +4,5 @@ wav/Howl_short_2.wav
 wav/Loons_short_2.wav
 wav/Suspense_2.wav
 wav/Door_Metal_2.wav
-+easy_wavs_player.py
++wavs_player.py
 wavplayer.py
