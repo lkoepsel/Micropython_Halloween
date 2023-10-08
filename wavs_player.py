@@ -42,6 +42,6 @@ for wav_file in WAV_FILES:
     while wp.isplaying():
         i += 1
         if i > 10000:
-            print(f"You should be hearing {wav_file}")
+            print(f"You are hearing {wav_file}")
             i = 0
         pass

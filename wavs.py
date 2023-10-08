@@ -28,8 +28,8 @@ I2S_ID = 0
 BUFFER_LENGTH_IN_BYTES = 5000
 
 # ======= AUDIO CONFIGURATION =======
-WAV_FILES = ["Howl_short.wav", "Suspense.wav", "Loons_short.wav",
-             "Door_Metal.wav"]
+WAV_FILES = ["wav/Howl_short.wav", "wav/Suspense.wav", "wav/Loons_short.wav",
+             "wav/Door_Metal.wav"]
 WAV_SAMPLE_SIZE_IN_BITS = 16
 FORMAT = I2S.STEREO
 SAMPLE_RATE_IN_HZ = 16000
