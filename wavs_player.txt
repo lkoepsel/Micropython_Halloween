@@ -1,8 +1,14 @@
 # easy_wavs_player.py files
 /wav
-wav/Howl_short_2.wav
-wav/Loons_short_2.wav
-wav/Suspense_2.wav
-wav/Door_Metal_2.wav
+wav/Vincent_laugh.wav
+wav/crickets.wav
+wav/opening.wav
+wav/door.wav
+wav/loons.wav
+wav/Suspense.wav
+wav/thunder_clap.wav
+wav/monsters.wav
+wav/gasp.wav
+wav/dark_howl.wav
 +wavs_player.py
 wavplayer.py

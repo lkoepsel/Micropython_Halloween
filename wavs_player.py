@@ -12,17 +12,24 @@ from wavplayer import WavPlayer
 
 
 # ======= I2S CONFIGURATION =======
-SCK_PIN = 14
-WS_PIN = 15
-SD_PIN = 13
+SCK_PIN = 7
+WS_PIN = 8
+SD_PIN = 9
 I2S_ID = 0
 BUFFER_LENGTH_IN_BYTES = 40000
 # ======= I2S CONFIGURATION =======
 
-WAV_FILES = ["Howl_short_2.wav",
-             "Suspense_2.wav",
-             "Loons_short_2.wav",
-             "Door_Metal_2.wav"]
+WAV_FILES = ["crickets.wav",
+             "thunder_clap.wav",
+             "loons.wav",
+             "door.wav",
+             "dark_howl.wav",
+             "Suspense.wav",
+             "opening.wav",
+             "gasp.wav",
+             "monsters.wav",
+             "Vincent_laugh.wav",
+             ]
 
 
 wp = WavPlayer(

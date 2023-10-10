@@ -97,6 +97,8 @@ class WavPlayer:
 # "afconvert -v -d LEI16@16000 -l Mono -c 1 --mix" to convert an audio file
 # Compressor can also do it, however, it adds a 'junk' chunk which nee
     def parse(self, wav_file):
+        fmt_search = 1024
+
         chunk_ID = wav_file.read(4)
         print(f"{str(chunk_ID)=}")
         if chunk_ID != b"RIFF":
@@ -110,6 +112,13 @@ class WavPlayer:
         sub_chunk1_ID = wav_file.read(4)
         print(f"{str(sub_chunk1_ID)=}")
         if sub_chunk1_ID != b"fmt ":
+            current = wav_file.tell()
+            junk_block = wav_file.read(fmt_search)
+            fmt_index = junk_block.find(b'fmt') + current
+            if fmt_index != -1:
+                wav_file.seek(fmt_index)
+                _ = wav_file.read(4)
+        else:
             raise ValueError("WAV sub chunk 1 ID invalid")
         sub_chunk1_size = wav_file.read(4)
         audio_format = struct.unpack("<H", wav_file.read(2))[0]

@@ -1,7 +1,0 @@
-# multiple_wavs.py files
-/wav
-wav/Howl_short.wav
-wav/Loons_short.wav
-wav/Suspense.wav
-wav/Door_Metal.wav
-wavs.py
